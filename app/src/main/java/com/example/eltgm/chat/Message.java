@@ -39,6 +39,11 @@ public class Message {
             return this;
         }
 
+        public Builder message(String message){
+            mMessage = message;
+            return this;
+        }
+
         public Message build() {
             Message message = new Message();
             message.mType = mType;
