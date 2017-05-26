@@ -35,7 +35,7 @@ public class Message {
         }
 
         public Builder username(String username){
-            mMessage = username;
+            mUsername = username;
             return this;
         }
 

@@ -1,17 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.eltgm.chat.MainActivity">
+    tools:context=".MainActivity"
+    tools:ignore="MergeRootFrame">
 
     <fragment
-        android:id="@+id/fragment"
-        android:name="com.example.eltgm.chat.MainFragment"
-        android:layout_width="368dp"
-        android:layout_height="495dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp" />
-
-</android.support.constraint.ConstraintLayout>
+        class="com.example.eltgm.chat.MainFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</FrameLayout>

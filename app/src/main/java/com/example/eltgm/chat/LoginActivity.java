@@ -4,12 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,7 +17,7 @@ import io.socket.emitter.Emitter;
 public class LoginActivity extends Activity {
 
     private EditText mUsernameView;
-    private EditText mPasswodView;
+    private EditText mPasswordView;
 
     private String mUsername;
     private String mPassword;
@@ -35,37 +32,35 @@ public class LoginActivity extends Activity {
         ChatApplication app = (ChatApplication) getApplication();
         mSocket = app.getSocket();
 
-        mPasswodView = (EditText) findViewById(R.id.password_input);
-        mUsernameView = (EditText) findViewById(R.id.username_input);
+        mPasswordView = (EditText) findViewById(R.id.password_input);
+        mUsernameView = (EditText) findViewById(R.id.username_input); // подключаемся к сокету и находим вьюхи
 
 
         Button signInButton = (Button) findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                attemptLogin(); //подключение к чату
             }
         });
 
-        mSocket.on("user_authorized", onLogin);
+        mSocket.on("user_authorized", onLogin); //слушаем событие сервера - "user_auth"
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        mSocket.off("user_authorized", onLogin);
+        mSocket.off("user_authorized", onLogin); //снимаем слушателя
     }
 
     private void attemptLogin() {
         JSONObject data = new JSONObject();
 
-
-
         mUsernameView.setError(null);
 
         String username = mUsernameView.getText().toString().trim();
-        String password = mPasswodView.getText().toString().trim();
+        String password = mPasswordView.getText().toString().trim();
 
         if (TextUtils.isEmpty(username)){
 
@@ -74,8 +69,8 @@ public class LoginActivity extends Activity {
             return;
         }
         if (TextUtils.isEmpty(password)){
-            mPasswodView.setError("required");
-            mPasswodView.requestFocus();
+            mPasswordView.setError("required");
+            mPasswordView.requestFocus();
             return;
         }
 
@@ -106,7 +101,7 @@ public class LoginActivity extends Activity {
 
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             intent.putExtra("username", mUsername);
-            startActivity(intent);
+            startActivity(intent); //как событие прошло - передаем логин и пароль и переходим на новую активность с чатом
             //intent.putExtra("numUsers", numUsers);
 
         }

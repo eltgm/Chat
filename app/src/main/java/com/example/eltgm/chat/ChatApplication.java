@@ -13,7 +13,7 @@ public class ChatApplication extends Application {
     {
         try {
             mSocket = IO.socket(Constants.CHAT_SERVER_URL);
-            System.err.println("Connect to " + Constants.CHAT_SERVER_URL + " "  + mSocket);
+            System.err.println("Connect to " + Constants.CHAT_SERVER_URL + " "  + mSocket); //при старте приложения конфигурируем сокет
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

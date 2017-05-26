@@ -27,11 +27,16 @@ import io.socket.emitter.Emitter;
 public class MainFragment extends Fragment {
 
     private static final int REQUEST_LOGIN = 0;
+
     private EditText mInputMessageView;
     private String mUsername;
+    private String mPassword;
+
     private List<Message> mMessages = new ArrayList<>();
+
     private Socket mSocket;
     private Boolean isConnected = true;
+
     private RecyclerView mMessagesView;
     private RecyclerView.Adapter mAdapter;
 
@@ -49,10 +54,11 @@ public class MainFragment extends Fragment {
         mSocket.connect();
         Intent intent = getActivity().getIntent();
         mUsername = intent.getStringExtra("username");
+        mPassword = intent.getStringExtra("password");
         //int numUsers = data.getIntExtra("numUsers", 1);
 
         Toast.makeText(getActivity(), "HELLO " + mUsername , Toast.LENGTH_LONG).show();
-        startSignIn();
+        //startSignIn();
     }
 
     public MainFragment() {
@@ -88,7 +94,9 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         mMessagesView = (RecyclerView) view.findViewById(R.id.messages);
+
         mMessagesView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
         mMessagesView.setAdapter(mAdapter);
 
         mInputMessageView = (EditText) view.findViewById(R.id.message_input);

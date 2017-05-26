@@ -9,10 +9,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * Created by frees_000 on 24.05.2017.
- */
-
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
     private List<Message> mMessages;
@@ -37,7 +33,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         Message message = mMessages.get(position);
         holder.setMessage(message.getMessage());
         holder.setUsername(message.getUsername());
-
     }
 
     @Override
@@ -65,7 +60,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         public void setUsername(String username) {
             if (null == mUsernameView) return;
             mUsernameView.setText(username);
-
+            mUsernameView.setTextColor(getUsernameColor(username));
         }
 
         public void setMessage(String message) {
@@ -73,6 +68,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             mMessageView.setText(message);
         }
 
-        //TODO color
+        private int getUsernameColor(String username) {
+            int hash = 7;
+            for (int i = 0, len = username.length(); i < len; i++) {
+                hash = username.codePointAt(i) + (hash << 5) - hash;
+            }
+            int index = Math.abs(hash % mUsernameColors.length);
+            return mUsernameColors[index];
+        }
     }
 }
